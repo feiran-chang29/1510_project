@@ -5,10 +5,14 @@ from am_model import retrieve
 from metrics import top1_accuracy, cosine_similarity_batch, estimate_snr
 
 NUM_TRIALS = 5  # 每个 N 重复几次随机实验求平均
+# d_k = 32
+# d_v = 64  # 可以 >= N
+# N_list = [20, 40, 80, 160, 320]  # memory load
 d_k = 32
-d_v = 64  # 可以 >= N
-N_list = [20, 40, 80, 160, 320]  # memory load
+N_list = [20, 40, 80, 160, 320]
+d_v = max(N_list)  # = 320，或者再大一点也行，比如 512
 taus = {"relu": None, "exp": 1.0, "solu": 1.0}
+
 
 def run_single_setting(N, key_mode="correlated", kernel_type="relu"):
     # 1. 生成 keys

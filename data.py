@@ -18,8 +18,14 @@ def generate_keys_correlated(N, d_k, subspace_dim=8, noise_std=0.1):
 
 def generate_values_onehot(N, d_v=None):
     if d_v is None:
-        d_v = N  # 简单方案：每个 key 一个独立 one-hot
+        d_v = N
     V = np.zeros((N, d_v))
-    idx = np.random.choice(d_v, size=N, replace=False) if d_v >= N else np.arange(N)
+    if d_v >= N:
+        # 每个样本用一个不重复的列
+        idx = np.random.choice(d_v, size=N, replace=False)
+    else:
+        # 真的出现 d_v < N，也不会炸，只是会有重复 label
+        idx = np.random.choice(d_v, size=N, replace=True)
     V[np.arange(N), idx] = 1.0
-    return V  # (N, d_v), 适合做 top-1 accuracy
+    return V
+
