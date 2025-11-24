@@ -7,7 +7,7 @@ from metrics import top1_accuracy, cosine_similarity_batch, estimate_snr
 
 NUM_TRIALS = 5 
 d_k = 32
-N_list = [160, 320, 640, 960, 1280]
+N_list = [80, 160, 240, 320, 400, 480, 560, 640]
 d_v = max(N_list) 
 taus = {"relu": None, "exp": 1.0, "solu": 1.0}
 NOISE_STD_LIST = [0.0, 0.1, 0.2, 0.3]
